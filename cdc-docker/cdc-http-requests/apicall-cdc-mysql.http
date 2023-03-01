@@ -1,0 +1,52 @@
+
+### Add Connector
+POST http://localhost:8083/connectors HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "testdb-connector",  
+  "config": {  
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",  
+    "database.hostname": "mysql",  
+    "database.port": "3307",
+    "database.user": "root",
+    "database.password": "root",
+    "database.server.id": "184054",  
+    "topic.prefix": "dbserver-1",  
+    "database.include.list": "testdb",  
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",  
+    "schema.history.internal.kafka.topic": "schema-changes.testdb"  
+  }
+}
+
+### Delete Connector
+DELETE http://localhost:8083/connectors/testdb-connector HTTP/1.1
+
+### Get Connector List
+GET http://localhost:8083/connectors HTTP/1.1
+
+### Get Connector Info
+GET http://localhost:8083/connectors/testdb-connector HTTP/1.1
+
+
+### Update Connector
+PUT http://localhost:8083/connectors HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "testdb-connector",  
+  "config": {  
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",  
+    "database.hostname": "mysql",  
+    "database.port": "3307",
+    "database.user": "root",
+    "database.password": "root",
+    "database.server.id": "184054",  
+    "topic.prefix": "dbserver-1",  
+    "database.include.list": "testdb",  
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",  
+    "schema.history.internal.kafka.topic": "schema-changes.testdb"  
+  }
+}
