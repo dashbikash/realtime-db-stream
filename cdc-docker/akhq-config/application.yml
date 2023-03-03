@@ -1,3 +1,7 @@
+micronaut:
+  server:
+    port: 8070
+
 akhq:
   connections:
     local:

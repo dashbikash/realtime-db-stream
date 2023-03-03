@@ -1,6 +1,6 @@
-create database if not exists testdb;
+create database if not exists employeedb;
 
-create table if not exists testdb.employees(
+create table if not exists employeedb.employees(
     empid int primary key,
     fname varchar(20) not null,
     lname varchar(20),
