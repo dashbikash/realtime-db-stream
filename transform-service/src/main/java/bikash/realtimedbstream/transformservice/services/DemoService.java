@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.translatorservice.services;
+package bikash.realtimedbstream.transformservice.services;
 
 import org.apache.kafka.common.protocol.Message;
 import org.springframework.beans.factory.annotation.Autowired;

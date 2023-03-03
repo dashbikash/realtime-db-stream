@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.translatorservice.services;
+package bikash.realtimedbstream.transformservice.services;
 
 public interface IDemoService {
 	void produce(String message);

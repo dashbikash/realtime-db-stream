@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.consumerservice;
+package bikash.realtimedbstream.syncservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import bikash.realtimedbstream.consumerservice.model.Employees;
+import bikash.realtimedbstream.syncservice.model.Employees;
 
 @Component
-public class ConsumerService {
+public class SyncService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	@KafkaListener(topics = "mongo-localhost.employeedb.employee", groupId = "mygroup")
+	@KafkaListener(topics = "mongo-localhost.employeedb.employees", groupId = "mygroup")
 	public void consume(@Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Payload String message) {
 		Gson gson = new Gson();
 		JsonObject msgObj = gson.fromJson(message, JsonObject.class);

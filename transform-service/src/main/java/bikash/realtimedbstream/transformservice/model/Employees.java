@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.translatorservice.model;
+package bikash.realtimedbstream.transformservice.model;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;

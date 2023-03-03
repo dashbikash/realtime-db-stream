@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.translatorservice;
+package bikash.realtimedbstream.transformservice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @RestController
-public class TranslatorserviceApplication implements CommandLineRunner{
+public class TransformApplication implements CommandLineRunner{
 	
 	@GetMapping
 	private Mono<String> index(){
@@ -21,7 +21,7 @@ public class TranslatorserviceApplication implements CommandLineRunner{
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(TranslatorserviceApplication.class, args);
+		SpringApplication.run(TransformApplication.class, args);
 	}
 
 	@Override

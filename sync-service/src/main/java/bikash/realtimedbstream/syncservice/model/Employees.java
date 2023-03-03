@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.consumerservice.model;
+package bikash.realtimedbstream.syncservice.model;
 
 import java.io.Serializable;
 

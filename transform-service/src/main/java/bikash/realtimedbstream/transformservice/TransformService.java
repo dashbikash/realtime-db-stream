@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.translatorservice.services;
+package bikash.realtimedbstream.transformservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -13,10 +13,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import bikash.realtimedbstream.translatorservice.model.Employees;
+import bikash.realtimedbstream.transformservice.model.Employees;
 
 @Component
-public class TranslatorService {
+public class TransformService {
 	final String SOURCE_TOPIC = "mysql-localhost.employeedb.employees";
 	final String TARGET_TOPIC = "mongo-localhost.employeedb.employees";
 	final String GROUPID = "mygroup";

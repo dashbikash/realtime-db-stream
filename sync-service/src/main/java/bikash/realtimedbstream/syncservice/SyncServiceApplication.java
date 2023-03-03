@@ -1,4 +1,4 @@
-package bikash.realtimedbstream.consumerservice;
+package bikash.realtimedbstream.syncservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import bikash.realtimedbstream.consumerservice.model.Employees;
+import bikash.realtimedbstream.syncservice.model.Employees;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @RestController
-public class ConsumerserviceApplication implements CommandLineRunner{
+public class SyncServiceApplication implements CommandLineRunner{
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
@@ -29,7 +29,7 @@ public class ConsumerserviceApplication implements CommandLineRunner{
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ConsumerserviceApplication.class, args);
+		SpringApplication.run(SyncServiceApplication.class, args);
 	}
 
 	@Override
