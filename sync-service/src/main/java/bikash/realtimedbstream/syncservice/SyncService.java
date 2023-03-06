@@ -20,7 +20,7 @@ public class SyncService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	@KafkaListener(topics = "mongo-localhost.employeedb.employees", groupId = "mygroup")
+//	@KafkaListener(topics = "mongo-localhost.employeedb.employees", groupId = "mygroup")
 	public void consume(@Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Payload String message) {
 		Gson gson = new Gson();
 		JsonObject msgObj = gson.fromJson(message, JsonObject.class);

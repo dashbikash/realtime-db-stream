@@ -1,13 +1,10 @@
 package bikash.realtimedbstream.syncservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Properties;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,15 +16,12 @@ import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 @RestController
-public class SyncServiceApplication implements CommandLineRunner{
-	@Autowired
-	private MongoTemplate mongoTemplate;
-	
+public class SyncServiceApplication implements CommandLineRunner {
 	@GetMapping
-	private Mono<String> index(){
+	private Mono<String> index() {
 		return Mono.just("Hello ! this is consumer service");
 	}
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(SyncServiceApplication.class, args);
 	}
@@ -36,7 +30,7 @@ public class SyncServiceApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		String sample="\n"
 				+ "{\n"
-				+ "	\"op\":\"d\",\n"
+				+ "	\"op\":\"c\",\n"
 				+ "      \"before\": {\n"
 				+ "        \"empid\": 2,\n"
 				+ "        \"fname\": \"bikash\",\n"
@@ -53,9 +47,11 @@ public class SyncServiceApplication implements CommandLineRunner{
 				+ "        \"email\": \"bikashprakashdash@wipro.com\",\n"
 				+ "        \"dob\": 521078400000\n"
 				+ "      }\n"
-				+ "	}\n"
-				+ "";
+				+ "	}";
 
+		Properties properties = new Properties();
+		// properties.setProperty("ssl", "true");
+		// properties.setProperty("sslmode", "NONE"); // NONE to trust all servers; STRICT for trusted only
 		
 		Gson gson=new Gson();
 		JsonObject msgObj=gson.fromJson(sample,JsonObject.class);
@@ -64,17 +60,14 @@ public class SyncServiceApplication implements CommandLineRunner{
 		newObj.addProperty("op",op);
 		if(op.equalsIgnoreCase("c")) {
 			Employees newEmp=gson.fromJson(msgObj.get("after").getAsJsonObject(), Employees.class);
-			mongoTemplate.insert(newEmp);
+			
 		}
 		if(op.equalsIgnoreCase("u")) {
 			Employees existingEmp=gson.fromJson(msgObj.get("before").getAsJsonObject(), Employees.class);
 			Employees newEmp=gson.fromJson(msgObj.get("after").getAsJsonObject(), Employees.class);
-			Employees emp= mongoTemplate.findOne(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())), Employees.class);
-			mongoTemplate.findAndReplace(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())),newEmp);
 		}
 		if(op.equalsIgnoreCase("d")) {
 			Employees existingEmp=gson.fromJson(msgObj.get("before").getAsJsonObject(), Employees.class);
-			mongoTemplate.remove(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())), Employees.class);
 		}
 	}
 
