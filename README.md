@@ -1,4 +1,4 @@
-# realtime-db-streameed 
+# Realtime Database Stream
 Problem
 1. Source is the MySql which is a streaming database on which data is changing regularly.
 2. Need to provide realtime data to external services/clients througn,
@@ -7,3 +7,4 @@ Problem
 3. The above required migrations should occur without hitting the streaming database (Mysql).
 
   
+![Alt text](system-diagram.jpg)
