@@ -1,0 +1,9 @@
+version: '2'
+services:
+  clickhouse:
+    image: bitnami/clickhouse:23
+    environment:
+      - CLICKHOUSE_ADMIN_USER=admin
+      - CLICKHOUSE_ADMIN_PASSWORD=admin
+    ports:
+      - '8123:8123'
