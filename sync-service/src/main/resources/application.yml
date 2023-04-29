@@ -3,23 +3,8 @@ server:
 
 spring:
   data:
-    mongodb:
-      uri: mongodb://root:root@localhost:27017/employeedb?authSource=admin&authMechanism=SCRAM-SHA-1
+    mongodb.uri: mongodb://root:root@localhost:27017/employeedb?authSource=admin&authMechanism=SCRAM-SHA-1
     
-    cassandra:
-      keyspace-name: employeeks
-      contact-points: 127.0.0.1
-      port: 9042
-      local-datacenter: datacenter1
-      username: cassandra
-      password: 1Password@
-      schema-action: CREATE_IF_NOT_EXISTS
-      request:
-        timeout: 10s
-      connection:
-        connect-timeout: 10s
-        init-query-timeout: 10s
-          
   kafka:
     consumer:
       bootstrap-servers: localhost:29092
@@ -31,3 +16,5 @@ spring:
       bootstrap-servers: localhost:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+clickhouse.uri: jdbc:ch://admin:admin@localhost:8123    

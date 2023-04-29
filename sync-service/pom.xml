@@ -49,6 +49,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>com.clickhouse</groupId>
+		    <artifactId>clickhouse-jdbc</artifactId>
+		    <version>0.4.5</version>
+		    <!-- use uber jar with all dependencies included, change classifier to http for smaller jar -->
+		    <classifier>all</classifier>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

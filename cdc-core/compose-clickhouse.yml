@@ -6,4 +6,6 @@ services:
       - CLICKHOUSE_ADMIN_USER=admin
       - CLICKHOUSE_ADMIN_PASSWORD=admin
     ports:
-      - '8123:8123'
+      - "8123:8123"
+      - "9000:9000"
+      - "9009:9009"

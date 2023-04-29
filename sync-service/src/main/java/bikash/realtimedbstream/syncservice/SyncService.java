@@ -20,7 +20,7 @@ public class SyncService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-//	@KafkaListener(topics = "mongo-localhost.employeedb.employees", groupId = "mygroup")
+	@KafkaListener(topics = "mongo-localhost.employeedb.employees", groupId = "mygroup")
 	public void consume(@Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Payload String message) {
 		Gson gson = new Gson();
 		JsonObject msgObj = gson.fromJson(message, JsonObject.class);
@@ -30,6 +30,12 @@ public class SyncService {
 		if (op.equalsIgnoreCase("c")) {
 			Employees newEmp = gson.fromJson(msgObj.get("after").getAsJsonObject(), Employees.class);
 			mongoTemplate.insert(newEmp);
+			try {
+				ClickHouseUtil.insert(newEmp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (op.equalsIgnoreCase("u")) {
 			Employees existingEmp = gson.fromJson(msgObj.get("before").getAsJsonObject(), Employees.class);
@@ -37,11 +43,24 @@ public class SyncService {
 			Employees emp = mongoTemplate.findOne(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())),
 					Employees.class);
 			mongoTemplate.findAndReplace(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())), newEmp);
+			try {
+				ClickHouseUtil.update(newEmp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (op.equalsIgnoreCase("d")) {
 			Employees existingEmp = gson.fromJson(msgObj.get("before").getAsJsonObject(), Employees.class);
 			mongoTemplate.remove(Query.query(Criteria.where("_id").is(existingEmp.getEmpid())), Employees.class);
+			try {
+				ClickHouseUtil.delete(existingEmp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		System.out.println(topic + " : " + message);
 	}
 }

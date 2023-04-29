@@ -1,10 +1,12 @@
 package bikash.realtimedbstream.syncservice.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @Document
@@ -22,7 +24,8 @@ public class Employees implements Serializable {
 	@SerializedName("email")
 	private String email;
 	@SerializedName("dob")
-	private Long dob;
+	@JsonAdapter(UnixTimestampAdapter.class)
+	private Date dob;
 
 	public Integer getEmpid() {
 		return empid;
@@ -64,11 +67,11 @@ public class Employees implements Serializable {
 		this.email = email;
 	}
 
-	public Long getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Long dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
